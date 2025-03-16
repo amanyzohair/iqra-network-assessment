@@ -1,0 +1,253 @@
+[
+  {
+    "id": "677cb621-68de-4f3d-a7be-697adab4c2c7",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "sub_questions": [],
+    "options": [],
+    "predecessor": null,
+    "label": "Profile Pic",
+    "description": "",
+
+    "type": "file",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": true,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "660b5523-92c3-4647-a48f-6d5bbf6bc7f5",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+
+    "options": [],
+    "sub_questions": [],
+    "predecessor": null,
+    "label": "Full Name",
+    "label_ar": "الاسم بالكامل",
+    "label_en": "Full Name",
+    "description": null,
+    "type": "text",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "a00d712e-e191-4b3a-af24-12cf82d67d60",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+
+    "options": [],
+    "sub_questions": [],
+    "predecessor": null,
+    "label": "Date of birth",
+
+    "description": null,
+    "type": "age",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": "2004-08-06 10:39:26.971735+00:00",
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "0f202bfa-432e-494c-bf80-d3b8368cff10",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+
+    "sub_questions": [],
+    "options": [],
+    "predecessor": null,
+    "label": "Current Salary",
+    "description": "Current Salary",
+    "description_ar": "الراتب الحالي",
+    "description_en": "Current Salary",
+    "type": "number",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null
+  },
+  {
+    "id": "b2df2336-a163-4c5b-b9fa-3e72bbea93c4",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+
+    "sub_questions": [],
+    "options": [
+      {
+        "id": 2928,
+        "text": "Male",
+        "text_ar": "ذكر",
+        "text_en": "Male",
+        "parent": null,
+        "question": "b2df2336-a163-4c5b-b9fa-3e72bbea93c4",
+        "dependant_questions": []
+      },
+      {
+        "id": 2927,
+        "text": "Female",
+        "text_ar": "أنثى",
+        "text_en": "Female",
+        "parent": null,
+        "question": "b2df2336-a163-4c5b-b9fa-3e72bbea93c4",
+        "dependant_questions": []
+      }
+    ],
+    "predecessor": null,
+    "options_questions": [null],
+    "label": "Gender",
+
+    "description": "",
+    "description_ar": "",
+    "description_en": "",
+    "type": "select",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null
+  },
+  {
+    "id": "90c530d8-59f1-46a8-a5b8-1e84257fc129",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+
+    "sub_questions": [],
+    "options": [],
+    "predecessor": null,
+    "label": "Description",
+    "description": "Descripe the roles you do in your current job",
+    "description_ar": "",
+    "description_en": "Descripe the roles you do in your current job",
+    "type": "textarea",
+    "mandatory": false,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "90c530d8-59f1-46a8-a5b8-1e84257fc121",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "sub_questions": [
+      {
+        "id": "660b5523-92c3-4647-a48f-6d5bbf6bc7fj",
+        "options": [],
+        "sub_questions": [],
+        "predecessor": null,
+        "label": "Name",
+        "description": null,
+        "type": "text",
+        "mandatory": true,
+        "enabled": true,
+        "parent": true,
+        "allowed_values": "",
+        "allow_upload": false,
+        "multiple_answers": false,
+        "default_value": null
+      },
+      {
+        "id": "660b5523-92c3-4647-a48f-6d5bbf6bc7f3",
+        "options": [],
+        "sub_questions": [],
+        "predecessor": null,
+        "label": "Interest",
+        "description": null,
+        "type": "range",
+        "mandatory": true,
+        "enabled": true,
+        "parent": true,
+        "allowed_values": "",
+        "allow_upload": false,
+        "multiple_answers": false,
+        "default_value": null
+      }
+    ],
+    "options": [],
+    "predecessor": null,
+    "label": "Hobbies",
+    "description": "Descripe the roles you do in your current job",
+    "type": "fieldgroup",
+    "mandatory": false,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "61e9a3e9-fab4-45a8-8c5d-09f329a0c614",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "sub_questions": [],
+    "options": [],
+    "predecessor": null,
+    "label": "Upload CV",
+    "description": "",
+    "description_ar": "",
+    "description_en": "",
+    "type": "file",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": true,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  }
+]
