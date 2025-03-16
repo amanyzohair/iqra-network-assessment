@@ -1,24 +1,21 @@
 [
   {
-    "id": "677cb621-68de-4f3d-a7be-697adab4c2c7",
+    "id": "660b5523-92c3-4647-a48f-6d5bbf6bc7f5",
     "field_sets": {
       "label": "Applicant Details"
     },
-    "sub_questions": [],
     "options": [],
+    "sub_questions": [],
     "predecessor": null,
-    "label": "Profile Pic",
-    "description": "",
-
-    "type": "file",
+    "label": "Full Name",
+    "placeholder": "Enter your Full Name",
+    "type": "text",
     "mandatory": true,
     "enabled": true,
     "parent": true,
     "allowed_values": "",
-    "allow_upload": true,
+    "allow_upload": false,
     "multiple_answers": false,
-    "min_value": null,
-    "max_value": null,
     "default_value": null,
     "dependant_question": null,
     "currency": null
@@ -28,15 +25,33 @@
     "field_sets": {
       "label": "Applicant Details"
     },
-
     "options": [],
     "sub_questions": [],
     "predecessor": null,
-    "label": "Full Name",
-    "label_ar": "الاسم بالكامل",
-    "label_en": "Full Name",
-    "description": null,
-    "type": "text",
+    "label": "Email",
+    "placeholder": "Enter your Email",
+    "type": "email",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": false,
+    "multiple_answers": false,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "660b5523-92c3-4647-a48f-6d5bbf6bc7f5",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "options": [],
+    "sub_questions": [],
+    "predecessor": null,
+    "label": "Phone Number",
+    "placeholder": "Enter your Phone Number",
+    "type": "phone",
     "mandatory": true,
     "enabled": true,
     "parent": true,
@@ -52,14 +67,12 @@
     "field_sets": {
       "label": "Applicant Details"
     },
-
     "options": [],
     "sub_questions": [],
     "predecessor": null,
     "label": "Date of birth",
-
-    "description": null,
-    "type": "age",
+    "placeholder": "Enter your Date of birth",
+    "type": "date",
     "mandatory": true,
     "enabled": true,
     "parent": true,
@@ -77,14 +90,11 @@
     "field_sets": {
       "label": "Applicant Details"
     },
-
     "sub_questions": [],
     "options": [],
     "predecessor": null,
     "label": "Current Salary",
-    "description": "Current Salary",
-    "description_ar": "الراتب الحالي",
-    "description_en": "Current Salary",
+    "placeholder": "Enter your Current Salary",
     "type": "number",
     "mandatory": true,
     "enabled": true,
@@ -102,23 +112,18 @@
     "field_sets": {
       "label": "Applicant Details"
     },
-
     "sub_questions": [],
     "options": [
       {
         "id": 2928,
-        "text": "Male",
-        "text_ar": "ذكر",
-        "text_en": "Male",
+        "label": "Male",
         "parent": null,
         "question": "b2df2336-a163-4c5b-b9fa-3e72bbea93c4",
         "dependant_questions": []
       },
       {
         "id": 2927,
-        "text": "Female",
-        "text_ar": "أنثى",
-        "text_en": "Female",
+        "label": "Female",
         "parent": null,
         "question": "b2df2336-a163-4c5b-b9fa-3e72bbea93c4",
         "dependant_questions": []
@@ -127,10 +132,7 @@
     "predecessor": null,
     "options_questions": [null],
     "label": "Gender",
-
-    "description": "",
-    "description_ar": "",
-    "description_en": "",
+    "placeholder": "Select your Gender",
     "type": "select",
     "mandatory": true,
     "enabled": true,
@@ -148,20 +150,76 @@
     "field_sets": {
       "label": "Applicant Details"
     },
-
     "sub_questions": [],
     "options": [],
     "predecessor": null,
-    "label": "Description",
-    "description": "Descripe the roles you do in your current job",
-    "description_ar": "",
-    "description_en": "Descripe the roles you do in your current job",
+    "label": "Current Role Responsibilities",
+    "placeholder": "Descripe the responsibilities you have in your current job",
     "type": "textarea",
     "mandatory": false,
     "enabled": true,
     "parent": true,
     "allowed_values": "",
     "allow_upload": false,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
+    "id": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "sub_questions": [],
+    "options": [
+      {
+        "id": 2923,
+        "label": "Referral",
+        "parent": null,
+        "question": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+        "dependant_questions": []
+      },
+      {
+        "id": 2967,
+        "label": "Linkedin",
+        "parent": null,
+        "question": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+        "dependant_questions": []
+      },
+      {
+        "id": 2234,
+        "label": "Facebook",
+        "parent": null,
+        "question": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+        "dependant_questions": []
+      },
+      {
+        "id": 2098,
+        "label": "Indeed",
+        "parent": null,
+        "question": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+        "dependant_questions": []
+      },
+      {
+        "id": 2238,
+        "label": "Other",
+        "parent": null,
+        "question": "61e9a3e9-fab4-45a8-8c5d-09f329a0ci94",
+        "dependant_questions": []
+      }
+    ],
+    "predecessor": null,
+    "label": "How were you referred to us?",
+    "placeholder": "How were you referred to us?",
+    "type": "radio",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": true,
     "multiple_answers": false,
     "min_value": null,
     "max_value": null,
@@ -181,7 +239,7 @@
         "sub_questions": [],
         "predecessor": null,
         "label": "Name",
-        "description": null,
+        "placeholder": "Enter your hobby name",
         "type": "text",
         "mandatory": true,
         "enabled": true,
@@ -197,7 +255,7 @@
         "sub_questions": [],
         "predecessor": null,
         "label": "Interest",
-        "description": null,
+        "placeholder": "",
         "type": "range",
         "mandatory": true,
         "enabled": true,
@@ -211,7 +269,7 @@
     "options": [],
     "predecessor": null,
     "label": "Hobbies",
-    "description": "Descripe the roles you do in your current job",
+    "placeholder": "",
     "type": "fieldgroup",
     "mandatory": false,
     "enabled": true,
@@ -234,9 +292,7 @@
     "options": [],
     "predecessor": null,
     "label": "Upload CV",
-    "description": "",
-    "description_ar": "",
-    "description_en": "",
+    "placeholder": "Upload CV",
     "type": "file",
     "mandatory": true,
     "enabled": true,

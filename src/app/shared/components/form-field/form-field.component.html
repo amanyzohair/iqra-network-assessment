@@ -1,0 +1,153 @@
+<div [ngSwitch]="field.type" class="flex flex-col">
+  <label [for]="field.id" class="block mb-1 text-sm font-medium text-gray-900">
+    {{ field.label }}
+  </label>
+  <input
+    *ngSwitchCase="'text'"
+    type="text"
+    [formControl]="formControl"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+  />
+  <input
+    *ngSwitchCase="'number'"
+    type="number"
+    [formControl]="formControl"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+  />
+  <input
+    *ngSwitchCase="'email'"
+    type="email"
+    [formControl]="formControl"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+  />
+  <input
+    *ngSwitchCase="'phone'"
+    type="tel"
+    [formControl]="formControl"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    pattern="^01[0-2,5]\d{8}$"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+  />
+  <div *ngSwitchCase="'range'" class="flex items-center">
+    <input
+      type="range"
+      [formControl]="formControl"
+      [id]="field.id"
+      [placeholder]="field.placeholder"
+      min="0"
+      max="5"
+      [value]="3"
+      class="h-2 range accent-cyan-500"
+    />
+    <div
+      id="rangeValue"
+      class="text-sm bg-cyan-500 text-white font-bold ml-2 px-2 py-1 rounded"
+    >
+      {{ formControl.value ? formControl.value : 3 }}
+    </div>
+  </div>
+  <input
+    *ngSwitchCase="'password'"
+    type="password"
+    [formControl]="formControl"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+  />
+
+  <select
+    *ngSwitchCase="'select'"
+    [formControl]="formControl"
+    [id]="field.id"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  >
+    <option selected value="">{{ field.placeholder }}</option>
+    <option *ngFor="let option of field.options" [value]="option.label">
+      {{ option.label }}
+    </option>
+  </select>
+
+  <input
+    *ngSwitchCase="'date'"
+    [formControl]="formControl"
+    type="date"
+    [id]="field.id"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  />
+  <textarea
+    *ngSwitchCase="'textarea'"
+    [id]="field.id"
+    [placeholder]="field.placeholder"
+    contenteditable="true"
+    rows="4"
+    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  ></textarea>
+  <fieldset [id]="field.id" *ngSwitchCase="'radio'" class="radio-group">
+    <div
+      class="radio-field cursor-pointer"
+      *ngFor="let option of field.options"
+    >
+      <input
+        type="radio"
+        [value]="option.label"
+        [name]="field.id"
+        [id]="option.id"
+        class="w-4 h-4"
+      />
+
+      <label [for]="option.id" class="cursor-pointer">
+        {{ option.label }}
+      </label>
+    </div>
+  </fieldset>
+  <div *ngSwitchCase="'file'">
+    <input
+      [formControl]="formControl"
+      type="file"
+      [id]="field.id"
+      hidden
+      #fileField
+      (change)="uploadEvent($event)"
+    />
+    <div
+      class="flex items-center border-2 border-gray-500 rounded-lg overflow-hidden"
+    >
+      <button
+        class="upload-btn px-3 py-2 text-gray-900 inline-flex gap-1"
+        (click)="fileField.click()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3"
+          />
+        </svg>
+      </button>
+      <input
+        [value]="fileName ? fileName : field.label"
+        type="text"
+        [id]="field.id"
+        (click)="fileField.click()"
+        [placeholder]="field.placeholder"
+        readonly
+        class="flex-1 p-2 outline-none bg-transparent placeholder-gray-600 text-gray-900 text-sm"
+      />
+    </div>
+  </div>
+</div>

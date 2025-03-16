@@ -1,0 +1,131 @@
+.dynamic-form-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: rgb(0, 102, 160, 1);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 102, 160, 0.7) 0%,
+    rgba(163, 109, 80, 0.7) 100%
+  );
+  .form-holder {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: fit-content;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    backdrop-filter: blur(4px);
+    .row-img {
+      display: flex;
+      img {
+        width: auto;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1300px) {
+    .form-holder {
+      width: 90%;
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    padding-inline: 2rem;
+    .form-holder {
+      width: 100%;
+      grid-template-columns: 40% auto;
+      .row-img {
+        display: flex;
+      }
+    }
+  }
+  @media only screen and (max-width: 1000px) {
+    .form-holder {
+      grid-template-columns: 100%;
+      .row-img {
+        display: flex;
+        max-height: 300px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    padding-inline: 1rem;
+  }
+}
+
+.tailwind-form {
+  form {
+    margin-inline: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    .fieldset {
+      width: calc(50% - 0.5rem);
+    }
+    .full-width {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .fieldgroup-array {
+        display: flex;
+        flex-direction: column;
+        .fieldgroup-array-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+    }
+    .file-fieldset {
+      width: 100%;
+    }
+    @media only screen and (max-width: 500px) {
+      .fieldset {
+        width: calc(100% - 1rem);
+      }
+      .full-width {
+        .fieldgroup-array {
+          .fieldgroup-array-item {
+            gap: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.fieldgroup-fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+  width: fit-content;
+  flex-wrap: wrap;
+  app-form-field {
+    width: calc(50% - 0.5rem);
+  }
+  @media only screen and (max-width: 600px) {
+    app-form-field {
+      width: calc(100% - 1rem);
+    }
+  }
+}
+.submit-btn-holder {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-block-end: 2rem;
+  padding-inline-end: 2rem;
+}

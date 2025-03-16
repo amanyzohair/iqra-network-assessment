@@ -1,0 +1,110 @@
+<section class="dynamic-form-layout py-5 md:py-5 lg:py-5">
+  <div
+    class="mx-auto justify-center align-middle rounded-3xl border-2 border-gray-300 shadow-gray-600 shadow-md grid form-holder"
+  >
+    <div class="row-img rounded-lg">
+      <img
+        src="assets/imgs/business-remotely.jpg"
+        alt="Business Remotely"
+        class="rounded-3xl"
+      />
+    </div>
+    <div>
+      <section class="tailwind-form">
+        <form [formGroup]="form" *ngIf="questions">
+          <ng-container *ngFor="let field of questions">
+            <div
+              [ngSwitch]="field.type"
+              [ngClass]="
+                field.type === 'fieldgroup' || field.type === 'file'
+                  ? 'full-width'
+                  : 'fieldset'
+              "
+            >
+              <ng-container *ngSwitchCase="'fieldgroup'">
+                <h2 class="text-xl font-bold text-gray-900">
+                  {{ field.label }} :
+
+                  <button
+                    type="button"
+                    (click)="addFieldGroup(field)"
+                    class="text-gray-900 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-2 py-1.5 text-center"
+                  >
+                    + ADD
+                  </button>
+                </h2>
+                <div [formArrayName]="field.label" class="fieldgroup-array">
+                  <div
+                    class="fieldgroup-array-item"
+                    *ngFor="
+                      let subQuestion of getFormArray(field.label).controls;
+                      let i = index
+                    "
+                  >
+                    <div
+                      [formGroupName]="i"
+                      class="fieldgroup-fieldset rounded-lg p-3 border-2 border-gray-300"
+                    >
+                      <ng-container
+                        *ngFor="let subField of field.sub_questions"
+                      >
+                        <app-form-field
+                          [formControlName]="subField.label"
+                          [field]="subField"
+                        ></app-form-field>
+                      </ng-container>
+                    </div>
+                    <button
+                      (click)="removeFieldGroup(field, i)"
+                      class="font-medium rounded-full text-sm h-fit p-2.5 min-h-11 text-center items-center text-red-700 hover:border-red-800 focus:ring-2 focus:outline-none focus:ring-red-500"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#db0000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path
+                          d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                        ></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <div
+                class=""
+                *ngSwitchDefault
+                [ngClass]="field.type === 'file' ? 'file-fieldset' : ''"
+              >
+                <app-form-field
+                  [formControlName]="field.label"
+                  [field]="field"
+                ></app-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </form>
+        <div class="submit-btn-holder">
+          <button
+            (click)="submit()"
+            [disabled]="form?.invalid"
+            class="text-white bg-gradient-to-br from-cyan-500 via-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+          >
+            Submit
+          </button>
+        </div>
+
+        <!-- <pre>{{ form?.value | json }}</pre> -->
+      </section>
+    </div>
+  </div>
+</section>

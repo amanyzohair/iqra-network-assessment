@@ -1,7 +1,7 @@
 export interface Question {
   id: string;
   label: string;
-  description?: string;
+  placeholder?: string;
   type?: string;
   mandatory?: boolean;
   enabled?: boolean;

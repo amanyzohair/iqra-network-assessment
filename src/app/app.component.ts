@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from './shared/layout/layout.component';
+import { TailwindFormComponent } from './layout/tailwind-form/tailwind-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LayoutComponent],
+  imports: [TailwindFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
