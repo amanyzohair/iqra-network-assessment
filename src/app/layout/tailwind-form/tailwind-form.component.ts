@@ -14,11 +14,12 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Observable, Subject, take } from 'rxjs';
-import { Question } from '../../shared/models/questions.model';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
+import { FieldValidators, Question } from '../../shared/models/questions.model';
 
 @Component({
   selector: 'app-tailwind-form',
@@ -33,7 +34,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   private destroy$: Subject<boolean> = new Subject();
-
+  successMessage: string | null = null;
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.questions$.pipe(take(1)).subscribe((resp: Question[]) => {
@@ -48,23 +49,52 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
       if (question.type === 'fieldgroup') {
         let subGroup: any = {};
         question?.sub_questions?.forEach((subQues) => {
-          subGroup[subQues.label] = new FormControl(
-            '',
-            subQues.mandatory ? Validators.required : null
-          );
+          let validators: ValidatorFn[] = this.createValidators(subQues);
+          subGroup[subQues.label] = new FormControl('', validators);
         });
         group[question.label] = this.fb.array([this.fb.group(subGroup)]);
       } else {
-        group[question.label] = new FormControl(
-          '',
-          question.mandatory ? Validators.required : null
-        );
+        let validators: ValidatorFn[] = this.createValidators(question);
+        group[question.label] = new FormControl('', validators);
       }
     });
     return this.fb.group(group);
   }
   getFormArray(name: string): FormArray {
     return (this.form?.get(name) as FormArray) || [];
+  }
+  createValidators(question: Question): ValidatorFn[] {
+    let validators: ValidatorFn[] = [];
+    if (question.mandatory) validators.push(Validators.required);
+    if (question.validators?.length > 0) {
+      question.validators.forEach((validator) => {
+        const [validatorName, validatorValue] = Object.entries(validator)[0];
+        switch (validatorName) {
+          case FieldValidators.EMAIL:
+            validators.push(Validators.email);
+            break;
+          case FieldValidators.PATTERN:
+            validators.push(Validators.pattern(`${validatorValue}`));
+            break;
+          case FieldValidators.MIN:
+            validators.push(Validators.min(Number(validatorValue)));
+            break;
+          case FieldValidators.MAX:
+            validators.push(Validators.max(Number(validatorValue)));
+            break;
+          case FieldValidators.MINLENGTH:
+            validators.push(Validators.minLength(Number(validatorValue)));
+            break;
+          case FieldValidators.MAXLENGTH:
+            validators.push(Validators.maxLength(Number(validatorValue)));
+            break;
+          default:
+            console.warn(`Unknown validator: ${validatorName}`);
+            break;
+        }
+      });
+    }
+    return validators;
   }
   addFieldGroup(question: Question) {
     let group: any = [];
@@ -82,7 +112,12 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     array.removeAt(index);
   }
   submit() {
-    console.log('values', this.form?.getRawValue());
+    console.log('Form submitted successfully!', this.form.value);
+    this.successMessage = 'Form submitted successfully!';
+
+    setTimeout(() => {
+      this.successMessage = null;
+    }, 5000);
   }
   handelValueChange() {
     this.form?.valueChanges.subscribe((values: FormData) => {

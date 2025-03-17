@@ -1,10 +1,11 @@
 <div [ngSwitch]="field.type" class="flex flex-col">
   <label
     [for]="field.id"
-    class="block mb-1 text-sm font-medium text-gray-900"
+    class="block text-sm font-medium text-gray-900"
     *ngIf="field.type !== 'checkbox'"
   >
     {{ field.label }}
+    <span *ngIf="field.mandatory" class="text-red-700">*</span>
   </label>
   <input
     *ngSwitchCase="'text'"
@@ -12,7 +13,13 @@
     [formControl]="formControl"
     [id]="field.id"
     [placeholder]="field.placeholder"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
   <input
     *ngSwitchCase="'number'"
@@ -20,7 +27,13 @@
     [formControl]="formControl"
     [id]="field.id"
     [placeholder]="field.placeholder"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
   <input
     *ngSwitchCase="'email'"
@@ -28,7 +41,13 @@
     [formControl]="formControl"
     [id]="field.id"
     [placeholder]="field.placeholder"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
   <input
     *ngSwitchCase="'phone'"
@@ -36,8 +55,13 @@
     [formControl]="formControl"
     [id]="field.id"
     [placeholder]="field.placeholder"
-    pattern="^01[0-2,5]\d{8}$"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
   <div *ngSwitchCase="'range'" class="flex items-center">
     <input
@@ -63,27 +87,37 @@
     [formControl]="formControl"
     [id]="field.id"
     [placeholder]="field.placeholder"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
-
   <select
     *ngSwitchCase="'select'"
     [formControl]="formControl"
     [id]="field.id"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    class="{{ commonClasses }} "
   >
     <option selected value="">{{ field.placeholder }}</option>
     <option *ngFor="let option of field.options" [value]="option.label">
       {{ option.label }}
     </option>
   </select>
-
   <input
     *ngSwitchCase="'date'"
     [formControl]="formControl"
     type="date"
     [id]="field.id"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   />
   <textarea
     *ngSwitchCase="'textarea'"
@@ -91,7 +125,13 @@
     [placeholder]="field.placeholder"
     contenteditable="true"
     rows="4"
-    class="bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    class="{{ commonClasses }}"
+    [ngClass]="
+      formControl.hasError('required') &&
+      (formControl.touched || formControl.dirty)
+        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+        : ''
+    "
   ></textarea>
   <fieldset [id]="field.id" *ngSwitchCase="'radio'" class="radio-group">
     <div
@@ -111,17 +151,16 @@
       </label>
     </div>
   </fieldset>
-  <div class="flex items-center mb-4" *ngSwitchCase="'checkbox'">
+  <div class="flex items-center" *ngSwitchCase="'checkbox'">
     <input
       [id]="field.id"
       type="checkbox"
       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
     />
-    <label [for]="field.id" class="ms-2 text-lg font-medium text-gray-900">
+    <label [for]="field.id" class="text-medium font-medium text-gray-900 ms-2">
       {{ field.label }}</label
     >
   </div>
-
   <div *ngSwitchCase="'file'">
     <input
       [formControl]="formControl"
@@ -165,4 +204,39 @@
       />
     </div>
   </div>
+  <span class="error-holder">
+    <span
+      [ngClass]="
+        formControl.hasError('required') &&
+        (formControl.touched || formControl.dirty)
+          ? ''
+          : 'hidden-error'
+      "
+      class="text-red-700 error-msg"
+    >
+      This field is required
+    </span>
+    <span
+      [ngClass]="
+        formControl.hasError('email') &&
+        (formControl.touched || formControl.dirty)
+          ? ''
+          : 'hidden-error'
+      "
+      class="text-red-700 error-msg"
+    >
+      Please enter a valid email
+    </span>
+    <span
+      [ngClass]="
+        formControl.hasError('pattern') &&
+        (formControl.touched || formControl.dirty)
+          ? ''
+          : 'hidden-error'
+      "
+      class="text-red-700 error-msg"
+    >
+      Please enter a valid data
+    </span>
+  </span>
 </div>

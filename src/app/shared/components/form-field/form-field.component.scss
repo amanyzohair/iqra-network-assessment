@@ -13,3 +13,24 @@
 input[type="radio"] {
   accent-color: #309ec0;
 }
+.error-holder {
+  height: 15px;
+}
+.error-msg {
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  padding-inline-start: 5px;
+  margin-top: 2px;
+  opacity: 1;
+  display: block;
+  height: auto;
+  width: auto;
+  transition: 0.25s opacity linear, 0.25s height linear;
+}
+.hidden-error {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
