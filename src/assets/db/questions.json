@@ -228,6 +228,29 @@
     "currency": null
   },
   {
+    "id": "61e9a3e9-fab4-45a8-8c3t-09f329a0c614",
+    "field_sets": {
+      "label": "Applicant Details"
+    },
+    "sub_questions": [],
+    "options": [],
+    "predecessor": null,
+    "label": "I'm a US Citizen",
+    "placeholder": "I'm a US Citizen",
+    "type": "checkbox",
+    "mandatory": true,
+    "enabled": true,
+    "parent": true,
+    "allowed_values": "",
+    "allow_upload": true,
+    "multiple_answers": false,
+    "min_value": null,
+    "max_value": null,
+    "default_value": null,
+    "dependant_question": null,
+    "currency": null
+  },
+  {
     "id": "90c530d8-59f1-46a8-a5b8-1e84257fc121",
     "field_sets": {
       "label": "Applicant Details"
