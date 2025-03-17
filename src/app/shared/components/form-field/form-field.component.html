@@ -1,250 +1,255 @@
-<div [ngSwitch]="field.type" class="flex flex-col">
-  <label
-    [for]="field.id"
-    class="block text-sm font-medium text-gray-900"
-    *ngIf="field.type !== 'checkbox'"
-  >
-    {{ field.label }}
-    <span *ngIf="field.mandatory" class="text-red-700">*</span>
-  </label>
-  <input
-    *ngSwitchCase="'text'"
-    type="text"
-    [formControl]="formControl"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <input
-    *ngSwitchCase="'number'"
-    type="number"
-    [formControl]="formControl"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <input
-    *ngSwitchCase="'email'"
-    type="email"
-    [formControl]="formControl"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <input
-    *ngSwitchCase="'phone'"
-    type="tel"
-    [formControl]="formControl"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <div *ngSwitchCase="'range'" class="flex items-center">
+<ng-container *ngIf="field">
+  <div [ngSwitch]="field.type" class="flex flex-col">
+    <label
+      [for]="field.id"
+      class="block text-sm font-medium text-gray-900"
+      *ngIf="field?.type !== 'checkbox'"
+    >
+      {{ field.label }}
+      <span *ngIf="field.mandatory" class="text-red-700">*</span>
+    </label>
     <input
-      type="range"
+      *ngSwitchCase="'text'"
+      type="text"
       [formControl]="formControl"
       [id]="field.id"
       [placeholder]="field.placeholder"
-      min="0"
-      max="5"
-      [value]="3"
-      class="h-2 range accent-cyan-500"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
     />
-    <div
-      id="rangeValue"
-      class="text-sm bg-cyan-500 text-white font-bold ml-2 px-2 py-1 rounded"
-    >
-      {{ formControl.value ? formControl.value : 3 }}
-    </div>
-  </div>
-  <input
-    *ngSwitchCase="'password'"
-    type="password"
-    [formControl]="formControl"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <select
-    *ngSwitchCase="'select'"
-    [formControl]="formControl"
-    [id]="field.id"
-    class="{{ commonClasses }} "
-  >
-    <option selected value="">{{ field.placeholder }}</option>
-    <option *ngFor="let option of field.options" [value]="option.label">
-      {{ option.label }}
-    </option>
-  </select>
-  <input
-    *ngSwitchCase="'date'"
-    [formControl]="formControl"
-    type="date"
-    [id]="field.id"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  />
-  <textarea
-    *ngSwitchCase="'textarea'"
-    [id]="field.id"
-    [placeholder]="field.placeholder"
-    contenteditable="true"
-    rows="4"
-    class="{{ commonClasses }}"
-    [ngClass]="
-      formControl.errors && (formControl.touched || formControl.dirty)
-        ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
-        : ''
-    "
-  ></textarea>
-  <fieldset [id]="field.id" *ngSwitchCase="'radio'" class="radio-group">
-    <div
-      class="radio-field cursor-pointer"
-      *ngFor="let option of field.options"
-    >
-      <input
-        type="radio"
-        [value]="option.label"
-        [name]="field.id"
-        [id]="option.id"
-        class="w-4 h-4"
-      />
-
-      <label [for]="option.id" class="cursor-pointer">
-        {{ option.label }}
-      </label>
-    </div>
-  </fieldset>
-  <div class="flex items-center" *ngSwitchCase="'checkbox'">
     <input
-      [id]="field.id"
-      type="checkbox"
-      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-    />
-    <label [for]="field.id" class="text-medium font-medium text-gray-900 ms-2">
-      {{ field.label }}</label
-    >
-  </div>
-  <div *ngSwitchCase="'file'">
-    <input
+      *ngSwitchCase="'number'"
+      type="number"
       [formControl]="formControl"
-      type="file"
       [id]="field.id"
-      hidden
-      #fileField
-      (change)="uploadEvent($event)"
+      [placeholder]="field.placeholder"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
     />
-    <div
-      class="flex items-center border-2 border-gray-500 rounded-lg overflow-hidden"
-    >
-      <button
-        class="upload-btn px-3 py-2 text-gray-900 inline-flex gap-1"
-        (click)="fileField.click()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#000000"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3"
-          />
-        </svg>
-      </button>
+    <input
+      *ngSwitchCase="'email'"
+      type="email"
+      [formControl]="formControl"
+      [id]="field.id"
+      [placeholder]="field.placeholder"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
+    />
+    <input
+      *ngSwitchCase="'phone'"
+      type="tel"
+      [formControl]="formControl"
+      [id]="field.id"
+      [placeholder]="field.placeholder"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
+    />
+    <div *ngSwitchCase="'range'" class="flex items-center">
       <input
-        [value]="fileName ? fileName : field.label"
-        type="text"
+        type="range"
+        [formControl]="formControl"
         [id]="field.id"
-        (click)="fileField.click()"
         [placeholder]="field.placeholder"
-        readonly
-        class="flex-1 p-2 outline-none bg-transparent placeholder-gray-600 text-gray-900 text-sm"
+        min="0"
+        max="5"
+        [value]="3"
+        class="h-2 range accent-cyan-500"
       />
+      <div
+        id="rangeValue"
+        class="text-sm bg-cyan-500 text-white font-bold ml-2 px-2 py-1 rounded"
+      >
+        {{ formControl.value ? formControl.value : 3 }}
+      </div>
     </div>
+    <input
+      *ngSwitchCase="'password'"
+      type="password"
+      [formControl]="formControl"
+      [id]="field.id"
+      [placeholder]="field.placeholder"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
+    />
+    <select
+      *ngSwitchCase="'select'"
+      [formControl]="formControl"
+      [id]="field.id"
+      class="{{ commonClasses }} "
+    >
+      <option selected value="">{{ field.placeholder }}</option>
+      <option *ngFor="let option of field.options" [value]="option.label">
+        {{ option.label }}
+      </option>
+    </select>
+    <input
+      *ngSwitchCase="'date'"
+      [formControl]="formControl"
+      type="date"
+      [id]="field.id"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
+    />
+    <textarea
+      *ngSwitchCase="'textarea'"
+      [id]="field.id"
+      [placeholder]="field.placeholder"
+      contenteditable="true"
+      rows="4"
+      class="{{ commonClasses }}"
+      [ngClass]="
+        formControl.errors && (formControl.touched || formControl.dirty)
+          ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
+          : ''
+      "
+    ></textarea>
+    <fieldset [id]="field.id" *ngSwitchCase="'radio'" class="radio-group">
+      <div
+        class="radio-field cursor-pointer"
+        *ngFor="let option of field.options"
+      >
+        <input
+          type="radio"
+          [value]="option.label"
+          [name]="field.id"
+          [id]="option.id"
+          class="w-4 h-4"
+        />
+
+        <label [for]="option.id" class="cursor-pointer">
+          {{ option.label }}
+        </label>
+      </div>
+    </fieldset>
+    <div class="flex items-center" *ngSwitchCase="'checkbox'">
+      <input
+        [id]="field.id"
+        type="checkbox"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <label
+        [for]="field.id"
+        class="text-medium font-medium text-gray-900 ms-2"
+      >
+        {{ field.label }}</label
+      >
+    </div>
+    <div *ngSwitchCase="'file'">
+      <input
+        [formControl]="formControl"
+        type="file"
+        [id]="field.id"
+        hidden
+        #fileField
+        (change)="uploadEvent($event)"
+      />
+      <div
+        class="flex items-center border-2 border-gray-500 rounded-lg overflow-hidden"
+      >
+        <button
+          class="upload-btn px-3 py-2 text-gray-900 inline-flex gap-1"
+          (click)="fileField.click()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3"
+            />
+          </svg>
+        </button>
+        <input
+          [value]="fileName ? fileName : field.label"
+          type="text"
+          [id]="field.id"
+          (click)="fileField.click()"
+          [placeholder]="field.placeholder"
+          readonly
+          class="flex-1 p-2 outline-none bg-transparent placeholder-gray-600 text-gray-900 text-sm"
+        />
+      </div>
+    </div>
+    <span class="error-holder">
+      <span
+        [ngClass]="
+          formControl.hasError('required') &&
+          (formControl.touched || formControl.dirty)
+            ? ''
+            : 'hidden-error'
+        "
+        class="text-red-700 error-msg"
+      >
+        This field is required
+      </span>
+      <span
+        [ngClass]="
+          formControl.hasError('email') &&
+          (formControl.touched || formControl.dirty)
+            ? ''
+            : 'hidden-error'
+        "
+        class="text-red-700 error-msg"
+      >
+        Please enter a valid email
+      </span>
+      <span
+        [ngClass]="
+          formControl.hasError('pattern') &&
+          (formControl.touched || formControl.dirty)
+            ? ''
+            : 'hidden-error'
+        "
+        class="text-red-700 error-msg"
+      >
+        Please enter a valid data
+      </span>
+      <span
+        *ngIf="
+          formControl.hasError('emailExists') === true &&
+          (formControl.touched || formControl.dirty)
+        "
+        class="text-red-700 error-msg email-msg"
+        [ngClass]="
+          formControl.hasError('emailExists') === true &&
+          (formControl.touched || formControl.dirty)
+            ? ''
+            : 'hidden-error'
+        "
+      >
+        This Email exists
+      </span>
+    </span>
   </div>
-  <span class="error-holder">
-    <span
-      [ngClass]="
-        formControl.hasError('required') &&
-        (formControl.touched || formControl.dirty)
-          ? ''
-          : 'hidden-error'
-      "
-      class="text-red-700 error-msg"
-    >
-      This field is required
-    </span>
-    <span
-      [ngClass]="
-        formControl.hasError('email') &&
-        (formControl.touched || formControl.dirty)
-          ? ''
-          : 'hidden-error'
-      "
-      class="text-red-700 error-msg"
-    >
-      Please enter a valid email
-    </span>
-    <span
-      [ngClass]="
-        formControl.hasError('pattern') &&
-        (formControl.touched || formControl.dirty)
-          ? ''
-          : 'hidden-error'
-      "
-      class="text-red-700 error-msg"
-    >
-      Please enter a valid data
-    </span>
-    <span
-      *ngIf="
-        formControl.hasError('emailExists') === true &&
-        (formControl.touched || formControl.dirty)
-      "
-      class="text-red-700 error-msg email-msg"
-      [ngClass]="
-        formControl.hasError('emailExists') === true &&
-        (formControl.touched || formControl.dirty)
-          ? ''
-          : 'hidden-error'
-      "
-    >
-      This Email exists
-    </span>
-  </span>
-</div>
+</ng-container>

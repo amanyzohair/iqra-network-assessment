@@ -2,7 +2,7 @@ export interface Question {
   id: string;
   label: string;
   placeholder?: string;
-  type?: string;
+  type: string;
   mandatory?: boolean;
   validators: {}[];
   enabled?: boolean;

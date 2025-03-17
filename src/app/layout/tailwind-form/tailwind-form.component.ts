@@ -49,7 +49,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
       formData = JSON.parse(storageData);
     }
 
-    this.questions$.pipe(take(1)).subscribe((resp: Question[]) => {
+    this.questions$?.pipe(take(1)).subscribe((resp: Question[]) => {
       this.form = this.buildForm(resp);
       this.form.patchValue(formData);
       this.handelValueChange();

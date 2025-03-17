@@ -31,7 +31,9 @@ export class FormFieldComponent implements ControlValueAccessor, OnInit {
   commonClasses: string =
     'bg-transparent placeholder-gray-600 focus:outline-none border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:border-blue-500 block py-2 px-2.5';
   constructor(@Optional() @Self() public ngControl: NgControl) {
-    this.ngControl.valueAccessor = this;
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
   ngOnInit(): void {
     if (this.ngControl && this.ngControl.control) {
