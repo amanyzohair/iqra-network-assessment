@@ -17,7 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable, Subject, take } from 'rxjs';
-import { Question } from '../../core/models/questions';
+import { Question } from '../../shared/models/questions.model';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 
 @Component({

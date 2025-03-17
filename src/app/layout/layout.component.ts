@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Question } from '../core/models/questions';
+import { Question } from '../shared/models/questions.model';
 import { QuestionsService } from '../core/services/questions.service';
 import { TailwindFormComponent } from './tailwind-form/tailwind-form.component';
 import { NgOptimizedImage } from '@angular/common';

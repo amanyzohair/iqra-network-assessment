@@ -7,7 +7,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Question } from '../../../core/models/questions';
+import { Question } from '../../models/questions.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
