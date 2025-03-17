@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -12,7 +12,6 @@ import {
 import { Observable, take } from 'rxjs';
 import { Question } from '../../core/models/questions';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { QuestionsService } from '../../core/services/questions.service';
 
 @Component({
   selector: 'app-tailwind-form',
@@ -21,22 +20,15 @@ import { QuestionsService } from '../../core/services/questions.service';
   templateUrl: './tailwind-form.component.html',
   styleUrl: './tailwind-form.component.scss',
 })
-export class TailwindFormComponent implements OnInit {
-  questions!: Question[];
+export class TailwindFormComponent implements OnInit, OnDestroy {
+  @Input() questions$!: Observable<Question[]>;
   form!: FormGroup;
 
-  constructor(
-    private questionsService: QuestionsService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
-    this.questionsService
-      .getQuestions()
-      .pipe(take(1))
-      .subscribe((resp: Question[]) => {
-        this.questions = resp;
-        this.form = this.buildForm(resp);
-      });
+    this.questions$.pipe(take(1)).subscribe((resp: Question[]) => {
+      this.form = this.buildForm(resp);
+    });
   }
 
   buildForm(questions: Question[]): FormGroup {
@@ -78,7 +70,9 @@ export class TailwindFormComponent implements OnInit {
     let array = this.getFormArray(question.label);
     array.removeAt(index);
   }
+
   submit() {
     console.log('values', this.form.getRawValue());
   }
+  ngOnDestroy(): void {}
 }

@@ -1,0 +1,49 @@
+<section class="dynamic-form-layout py-5 md:py-5 lg:py-5">
+  <div
+    class="mx-auto justify-center align-middle rounded-3xl border-2 border-gray-300 shadow-gray-600 shadow-md grid form-holder"
+  >
+    <div class="row-img rounded-lg" *ngIf="questions$ | async">
+      <img
+        src="assets/imgs/business-remotely.jpg"
+        alt="Business Remotely"
+        class="rounded-3xl"
+      />
+      <div class="form-values-layout">
+        <ul>
+          <ng-container *ngFor="let item of values | keyvalue">
+            <li *ngIf="!isArray(item.value); else arrayValue">
+              <span class="font-bold">{{ item.key }} : </span>
+              <span class="text-gray-800">{{ item.value }}</span>
+            </li>
+            <ng-template #arrayValue>
+              <li
+                class="array-row"
+                *ngIf="checkValue(item?.value)?.length !== 0"
+              >
+                <span class="font-bold">{{ item.key }} : </span>
+                <div
+                  class="array-item"
+                  *ngFor="let subItem of checkValue(item?.value); let i = index"
+                >
+                  <span
+                    *ngFor="
+                      let subValue of subItem | keyvalue;
+                      let isLast = last
+                    "
+                  >
+                    <span class="font-bold">{{ subValue.key }} :</span>
+                    {{ subValue.value }}
+                    {{ isLast ? "" : " ," }}
+                  </span>
+                </div>
+              </li>
+            </ng-template>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <app-tailwind-form [questions$]="questions$"></app-tailwind-form>
+    </div>
+  </div>
+</section>
