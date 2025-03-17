@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -9,7 +16,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Observable, take } from 'rxjs';
+import { Observable, Subject, take } from 'rxjs';
 import { Question } from '../../core/models/questions';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 
@@ -22,12 +29,16 @@ import { FormFieldComponent } from '../../shared/components/form-field/form-fiel
 })
 export class TailwindFormComponent implements OnInit, OnDestroy {
   @Input() questions$!: Observable<Question[]>;
+  @Output() formValueChanged: EventEmitter<FormData> = new EventEmitter();
+
   form!: FormGroup;
+  private destroy$: Subject<boolean> = new Subject();
 
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.questions$.pipe(take(1)).subscribe((resp: Question[]) => {
       this.form = this.buildForm(resp);
+      this.handelValueChange();
     });
   }
 
@@ -53,7 +64,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     return this.fb.group(group);
   }
   getFormArray(name: string): FormArray {
-    return (this.form.get(name) as FormArray) || [];
+    return (this.form?.get(name) as FormArray) || [];
   }
   addFieldGroup(question: Question) {
     let group: any = [];
@@ -70,9 +81,17 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     let array = this.getFormArray(question.label);
     array.removeAt(index);
   }
-
   submit() {
-    console.log('values', this.form.getRawValue());
+    console.log('values', this.form?.getRawValue());
   }
-  ngOnDestroy(): void {}
+  handelValueChange() {
+    this.form?.valueChanges.subscribe((values: FormData) => {
+      this.formValueChanged.emit(values);
+    });
+    if (this.form) this.formValueChanged.emit(this.form.value); // For displaying the fields titles once initiated
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

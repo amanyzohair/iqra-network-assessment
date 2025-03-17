@@ -1,20 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Question } from '../core/models/questions';
 import { QuestionsService } from '../core/services/questions.service';
 import { TailwindFormComponent } from './tailwind-form/tailwind-form.component';
-import { CommonModule } from '@angular/common';
-
+import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [TailwindFormComponent, CommonModule],
+  imports: [TailwindFormComponent, CommonModule, NgOptimizedImage],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent implements OnInit {
   questions$!: Observable<Question[]>;
-  values?: {};
+  formData?: FormData;
+
   constructor(private questionsService: QuestionsService) {}
   ngOnInit(): void {
     this.questions$ = this.questionsService.getQuestions();
@@ -25,5 +26,8 @@ export class LayoutComponent implements OnInit {
   }
   checkValue(value: any): [] {
     return value;
+  }
+  handleDataChanged(event: FormData) {
+    this.formData = event;
   }
 }

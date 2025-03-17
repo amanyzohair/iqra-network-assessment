@@ -25,6 +25,7 @@
       img {
         width: auto;
         height: 100%;
+        min-height: 400px;
         object-fit: cover;
       }
       .form-values-layout {
@@ -55,7 +56,9 @@
       }
     }
   }
-
+  .loading-holder {
+    grid-template-columns: 100%;
+  }
   @media only screen and (max-width: 1300px) {
     .form-holder {
       width: 90%;

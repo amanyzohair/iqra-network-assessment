@@ -1,16 +1,23 @@
 <section class="dynamic-form-layout py-5 md:py-5 lg:py-5">
   <div
     class="mx-auto justify-center align-middle rounded-3xl border-2 border-gray-300 shadow-gray-600 shadow-md grid form-holder"
+    [ngClass]="!(questions$ | async)?.[0] ? 'loading-holder':''"
   >
-    <div class="row-img rounded-lg" *ngIf="questions$ | async">
+    <div class="row-img rounded-lg" *ngIf="(questions$ | async)?.[0]">
       <img
-        src="assets/imgs/business-remotely.jpg"
+        ngSrc="assets/imgs/business-remotely.webp"
         alt="Business Remotely"
+        priority
+        width="400"
+        height="200"
         class="rounded-3xl"
       />
-      <div class="form-values-layout">
+      <div
+        class="form-values-layout"
+        *ngIf="(questions$ | async)?.[0] && formData"
+      >
         <ul>
-          <ng-container *ngFor="let item of values | keyvalue">
+          <ng-container *ngFor="let item of formData | keyvalue">
             <li *ngIf="!isArray(item.value); else arrayValue">
               <span class="font-bold">{{ item.key }} : </span>
               <span class="text-gray-800">{{ item.value }}</span>
@@ -43,7 +50,10 @@
       </div>
     </div>
     <div>
-      <app-tailwind-form [questions$]="questions$"></app-tailwind-form>
+      <app-tailwind-form
+        [questions$]="questions$"
+        (formValueChanged)="handleDataChanged($event)"
+      ></app-tailwind-form>
     </div>
   </div>
 </section>
