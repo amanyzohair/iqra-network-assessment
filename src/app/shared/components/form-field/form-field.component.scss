@@ -28,6 +28,9 @@ input[type="radio"] {
   width: auto;
   transition: 0.25s opacity linear, 0.25s height linear;
 }
+.email-msg {
+  margin-top: -2px;
+}
 .hidden-error {
   opacity: 0;
   height: 0;

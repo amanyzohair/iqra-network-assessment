@@ -1,3 +1,4 @@
+import { QuestionsService } from './../../core/services/questions.service';
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -20,6 +21,7 @@ import {
 import { Observable, Subject, take } from 'rxjs';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { FieldValidators, Question } from '../../shared/models/questions.model';
+import { emailAsyncValidator } from '../../shared/validators/validators';
 
 @Component({
   selector: 'app-tailwind-form',
@@ -35,10 +37,21 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   private destroy$: Subject<boolean> = new Subject();
   successMessage: string | null = null;
-  constructor(private fb: FormBuilder) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private questionsService: QuestionsService
+  ) {}
   ngOnInit(): void {
+    let formData: FormData;
+    const storageData = localStorage.getItem('applicationFormData');
+    if (storageData) {
+      formData = JSON.parse(storageData);
+    }
+
     this.questions$.pipe(take(1)).subscribe((resp: Question[]) => {
       this.form = this.buildForm(resp);
+      this.form.patchValue(formData);
       this.handelValueChange();
     });
   }
@@ -50,12 +63,24 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
         let subGroup: any = {};
         question?.sub_questions?.forEach((subQues) => {
           let validators: ValidatorFn[] = this.createValidators(subQues);
-          subGroup[subQues.label] = new FormControl('', validators);
+          subGroup[subQues.label] = new FormControl(
+            '',
+            validators,
+            question.type === 'email'
+              ? emailAsyncValidator(this.questionsService)
+              : null
+          );
         });
         group[question.label] = this.fb.array([this.fb.group(subGroup)]);
       } else {
         let validators: ValidatorFn[] = this.createValidators(question);
-        group[question.label] = new FormControl('', validators);
+        group[question.label] = new FormControl(
+          '',
+          validators,
+          question.type === 'email'
+            ? emailAsyncValidator(this.questionsService)
+            : null
+        );
       }
     });
     return this.fb.group(group);

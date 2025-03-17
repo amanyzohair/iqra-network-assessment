@@ -15,8 +15,7 @@
     [placeholder]="field.placeholder"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -29,8 +28,7 @@
     [placeholder]="field.placeholder"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -43,8 +41,7 @@
     [placeholder]="field.placeholder"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -57,8 +54,7 @@
     [placeholder]="field.placeholder"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -89,8 +85,7 @@
     [placeholder]="field.placeholder"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -113,8 +108,7 @@
     [id]="field.id"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -127,8 +121,7 @@
     rows="4"
     class="{{ commonClasses }}"
     [ngClass]="
-      formControl.hasError('required') &&
-      (formControl.touched || formControl.dirty)
+      formControl.errors && (formControl.touched || formControl.dirty)
         ? 'border-red-700 text-red-900 placeholder-red-700 focus:border-red-700'
         : ''
     "
@@ -237,6 +230,21 @@
       class="text-red-700 error-msg"
     >
       Please enter a valid data
+    </span>
+    <span
+      *ngIf="
+        formControl.hasError('emailExists') === true &&
+        (formControl.touched || formControl.dirty)
+      "
+      class="text-red-700 error-msg email-msg"
+      [ngClass]="
+        formControl.hasError('emailExists') === true &&
+        (formControl.touched || formControl.dirty)
+          ? ''
+          : 'hidden-error'
+      "
+    >
+      This Email exists
     </span>
   </span>
 </div>

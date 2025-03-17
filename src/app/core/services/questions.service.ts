@@ -12,4 +12,7 @@ export class QuestionsService {
   getQuestions(): Observable<Question[]> {
     return this.httpClient.get<Question[]>('assets/db/questions.json');
   }
+  getEmails(): Observable<string[]> {
+    return this.httpClient.get<string[]>('assets/db/emails.json');
+  }
 }

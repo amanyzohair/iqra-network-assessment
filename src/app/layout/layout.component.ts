@@ -29,5 +29,6 @@ export class LayoutComponent implements OnInit {
   }
   handleDataChanged(event: FormData) {
     this.formData = event;
+    localStorage.setItem('applicationFormData', JSON.stringify(this.formData));
   }
 }
