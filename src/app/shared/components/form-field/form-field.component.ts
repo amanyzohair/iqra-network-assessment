@@ -14,11 +14,11 @@ import { Question } from '../../models/questions.model';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
-  // host: {
-  //   '(change)': 'onChange($event.target.value)',
-  //   '(input)': 'onChange($event.target.value)',
-  //   '(blur)': 'onTouched($event.target.value)',
-  // },
+  host: {
+    '(change)': 'onChange($event.target.value)',
+    '(input)': 'onChange($event.target.value)',
+    '(blur)': 'onTouched($event.target.value)',
+  },
 })
 export class FormFieldComponent implements ControlValueAccessor, OnInit {
   @Input() field!: Question;

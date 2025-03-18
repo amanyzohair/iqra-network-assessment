@@ -51,7 +51,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
 
     this.questions$?.pipe(take(1)).subscribe((resp: Question[]) => {
       this.form = this.buildForm(resp);
-      this.form.patchValue(formData);
+      if (formData) this.form.patchValue(formData);
       this.handelValueChange();
     });
   }
