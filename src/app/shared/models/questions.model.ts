@@ -13,7 +13,7 @@ export interface Question {
   options?: Option[];
   multiplechoice?: boolean;
   dependant_question?: string;
-  predecessor: string;
+  predecessor?: string;
   initial_state?: string;
   min_value?: string;
   max_value?: string;

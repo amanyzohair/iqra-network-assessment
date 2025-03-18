@@ -66,7 +66,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
           subGroup[subQues.label] = new FormControl(
             '',
             validators,
-            question.type === 'email'
+            subQues.type === 'email'
               ? emailAsyncValidator(this.questionsService)
               : null
           );
@@ -125,9 +125,14 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     let group: any = [];
     let array = this.getFormArray(question.label);
     question?.sub_questions?.forEach((subQues) => {
+      let validators: ValidatorFn[] = this.createValidators(subQues);
+
       group[subQues.label] = new FormControl(
         '',
-        subQues.mandatory ? Validators.required : null
+        validators,
+        subQues.type === 'email'
+          ? emailAsyncValidator(this.questionsService)
+          : null
       );
     });
     array.push(this.fb.group(group));

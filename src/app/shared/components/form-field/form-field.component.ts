@@ -14,11 +14,11 @@ import { Question } from '../../models/questions.model';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
-  host: {
-    '(change)': 'onChange($event.target.value)',
-    '(input)': 'onChange($event.target.value)',
-    '(blur)': 'onTouched($event.target.value)',
-  },
+  // host: {
+  //   '(change)': 'onChange($event.target.value)',
+  //   '(input)': 'onChange($event.target.value)',
+  //   '(blur)': 'onTouched($event.target.value)',
+  // },
 })
 export class FormFieldComponent implements ControlValueAccessor, OnInit {
   @Input() field!: Question;
@@ -52,7 +52,7 @@ export class FormFieldComponent implements ControlValueAccessor, OnInit {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.formControl.disable() : this.formControl.enable();
   }
 
