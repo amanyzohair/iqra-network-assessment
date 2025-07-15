@@ -1,7 +1,3 @@
-<!-- <ng-cb-ui-header appTitle="Component communication using Signals" appName="ng-cc-signals">
-    <div class="spacer"></div>
-  </ng-cb-ui-header> -->
-
 <main class="content" role="main">
   <div class="mx-auto p-4">
     <div class="flex items-center justify-between mb-4">
@@ -11,9 +7,21 @@
 
     <!-- Task Input -->
     <div class="mb-4">
-      <input class="p-2 border rounded mr-2" placeholder="New task..." />
+      <input
+        class="p-2 border rounded mr-2"
+        placeholder="New task..."
+        [(ngModel)]="title"
+        required="true"
+      />
       <button
-        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        [ngClass]="
+          !title()
+            ? 'bg-slate-300'
+            : 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300'
+        "
+        (click)="addTodoItem()"
+        [disabled]="!title()"
       >
         Add
       </button>
@@ -21,12 +29,20 @@
 
     <!-- Task List -->
     <ul>
-      @for (task of tasks; track $index) {
+      @for (task of store.todos() ; track task.id) {
       <li class="mb-2 flex gap-4 items-center cursor-pointer hover:opacity-70">
-        <input type="checkbox" [checked]="task.completed" />
-        <span [ngClass]="{ 'line-through': task.completed }">{{
-          task.title
-        }}</span>
+        <input
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="store.toggleTodo(task.id)"
+          [id]="task.id"
+        />
+        <label
+          class="cursor-pointer"
+          [for]="task.id"
+          [ngClass]="{ 'line-through': task.completed }"
+          >{{ task.title }}
+        </label>
       </li>
       }
     </ul>

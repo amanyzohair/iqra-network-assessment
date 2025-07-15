@@ -1,16 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { TodosStore } from '../shared/store/todos/todos.store';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-ngrx-signals',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'app-ngrx-signals',
   templateUrl: './ngrx-signals.component.html',
   styleUrl: './ngrx-signals.component.scss',
+  imports: [CommonModule, FormsModule],
+  providers: [TodosStore],
 })
-export class NgrxSignalsComponent {
-  tasks = [
-    { title: 'Buy milk', completed: false },
-    { title: 'Read a book', completed: true },
-  ];
+export class NgrxSignalsComponent implements OnInit {
+  tasks = [];
+  store = inject(TodosStore);
+  title = signal('');
+  ngOnInit(): void {
+    console.log(typeof this.store);
+  }
+
+  addTodoItem() {
+    this.store.addTodo(this.title());
+    this.title.set('');
+  }
 }

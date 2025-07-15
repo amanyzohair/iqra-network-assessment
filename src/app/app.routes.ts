@@ -14,6 +14,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'products',
+    loadComponent: () =>
+      import('./products/products.component').then((m) => m.ProductsComponent),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
