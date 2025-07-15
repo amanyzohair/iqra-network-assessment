@@ -6,11 +6,10 @@ import { QuestionsService } from '../core/services/questions.service';
 import { TailwindFormComponent } from './tailwind-form/tailwind-form.component';
 import { NgOptimizedImage } from '@angular/common';
 @Component({
-  selector: 'app-layout',
-  standalone: true,
-  imports: [TailwindFormComponent, CommonModule, NgOptimizedImage],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
+    selector: 'app-layout',
+    imports: [TailwindFormComponent, CommonModule, NgOptimizedImage],
+    templateUrl: './layout.component.html',
+    styleUrl: './layout.component.scss'
 })
 export class LayoutComponent implements OnInit {
   questions$!: Observable<Question[]>;

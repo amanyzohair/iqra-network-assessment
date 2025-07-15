@@ -9,8 +9,8 @@ import {
 import { Question } from '../../models/questions.model';
 
 @Component({
-  selector: 'app-form-field',
   standalone: true,
+  selector: 'app-form-field',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
