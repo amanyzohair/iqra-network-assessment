@@ -15,9 +15,7 @@ export class NgrxSignalsComponent implements OnInit {
   tasks = [];
   store = inject(TodosStore);
   title = signal('');
-  ngOnInit(): void {
-    console.log(typeof this.store);
-  }
+  ngOnInit(): void {}
 
   addTodoItem() {
     this.store.addTodo(this.title());

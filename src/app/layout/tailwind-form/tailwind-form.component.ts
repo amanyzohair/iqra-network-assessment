@@ -1,12 +1,17 @@
 import { QuestionsService } from './../../core/services/questions.service';
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  signal,
 } from '@angular/core';
 import {
   FormArray,
@@ -18,10 +23,19 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Observable, Subject, take } from 'rxjs';
+import {
+  debounceTime,
+  Observable,
+  Subject,
+  Subscription,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { FieldValidators, Question } from '../../shared/models/questions.model';
 import { emailAsyncValidator } from '../../shared/validators/validators';
+import { FormStore } from '../../shared/store/form/form.store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tailwind-form',
@@ -29,36 +43,51 @@ import { emailAsyncValidator } from '../../shared/validators/validators';
   imports: [FormFieldComponent, ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './tailwind-form.component.html',
   styleUrl: './tailwind-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TailwindFormComponent implements OnInit, OnDestroy {
-  @Input() questions$!: Observable<Question[]>;
+  readonly store = inject(FormStore);
+  form = computed<FormGroup>(() => {
+    if (!this.store.loaded()) return new FormGroup({});
+    return this.buildForm();
+  });
+  get formValue() {
+    return this.form()?.value || {};
+  }
   @Output() formValueChanged: EventEmitter<FormData> = new EventEmitter();
 
-  form!: FormGroup;
   private destroy$: Subject<boolean> = new Subject();
   successMessage: string | null = null;
-
+  formSub?: Subscription;
   constructor(
     private fb: FormBuilder,
     private questionsService: QuestionsService
-  ) {}
-  ngOnInit(): void {
-    let formData: FormData;
-    const storageData = localStorage.getItem('applicationFormData');
-    if (storageData) {
-      formData = JSON.parse(storageData);
-    }
+  ) {
+    effect(() => {
+      if (this.store.loaded()) {
+        this.form()
+          .valueChanges.pipe(debounceTime(300), takeUntil(this.destroy$))
+          .subscribe((resp) => {
+            this.formValueChanged.emit(this.form()?.value);
+          });
 
-    this.questions$?.pipe(take(1)).subscribe((resp: Question[]) => {
-      this.form = this.buildForm(resp);
-      if (formData) this.form.patchValue(formData);
-      this.handelValueChange();
+        let formData: FormData;
+        const storageData = localStorage.getItem('applicationFormData');
+        if (storageData) {
+          formData = JSON.parse(storageData);
+          formData ? this.form().patchValue(formData) : null;
+          console.log('formData', formData);
+        }
+
+        // this.handelValueChange();
+      }
     });
   }
+  ngOnInit() {}
 
-  buildForm(questions: Question[]): FormGroup {
+  buildForm(): FormGroup {
     let group: any = {};
-    questions.forEach((question) => {
+    this.store.questions().forEach((question) => {
       if (question.type === 'fieldgroup') {
         let subGroup: any = {};
         question?.sub_questions?.forEach((subQues) => {
@@ -86,7 +115,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     return this.fb.group(group);
   }
   getFormArray(name: string): FormArray {
-    return (this.form?.get(name) as FormArray) || [];
+    return (this.form()?.get(name) as FormArray) || [];
   }
   createValidators(question: Question): ValidatorFn[] {
     let validators: ValidatorFn[] = [];
@@ -142,7 +171,7 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     array.removeAt(index);
   }
   submit() {
-    console.log('Form submitted successfully!', this.form.value);
+    console.log('Form submitted successfully!', this.form()?.value);
     this.successMessage = 'Form submitted successfully!';
 
     setTimeout(() => {
@@ -150,13 +179,19 @@ export class TailwindFormComponent implements OnInit, OnDestroy {
     }, 5000);
   }
   handelValueChange() {
-    this.form?.valueChanges.subscribe((values: FormData) => {
+    this.formSub = this.form()?.valueChanges.subscribe((values: FormData) => {
       this.formValueChanged.emit(values);
+
+      console.log('values', values);
     });
-    if (this.form) this.formValueChanged.emit(this.form.value); // For displaying the fields titles once initiated
+    if (this.form()) this.formValueChanged.emit(this.form()?.value); // For displaying the fields titles once initiated
+  }
+  checkValue() {
+    console.log('adaddaa', this.formValue());
   }
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+    this.formSub?.unsubscribe();
   }
 }
