@@ -20,49 +20,49 @@ describe('TailwindFormComponent', () => {
     formBuilder = TestBed.inject(FormBuilder);
 
     // Mock questions$ input
-    component.questions$ = of([
-      {
-        label: 'email',
-        type: 'email',
-        mandatory: true,
-        id: '123',
-        validators: [],
-        sub_questions: [],
-      },
-      {
-        label: 'phone',
-        type: 'phone',
-        mandatory: true,
-        id: '125',
-        validators: [],
-        sub_questions: [],
-      },
-      {
-        label: 'address',
-        type: 'fieldgroup',
-        id: '1277',
-        validators: [],
-        mandatory: false,
-        sub_questions: [
-          {
-            label: 'street',
-            type: 'text',
-            mandatory: true,
-            id: '12333',
-            validators: [],
-            sub_questions: [],
-          },
-          {
-            label: 'city',
-            type: 'text',
-            mandatory: true,
-            id: '1257',
-            validators: [],
-            sub_questions: [],
-          },
-        ],
-      },
-    ]);
+    // component.questions$ = of([
+    //   {
+    //     label: 'email',
+    //     type: 'email',
+    //     mandatory: true,
+    //     id: '123',
+    //     validators: [],
+    //     sub_questions: [],
+    //   },
+    //   {
+    //     label: 'phone',
+    //     type: 'phone',
+    //     mandatory: true,
+    //     id: '125',
+    //     validators: [],
+    //     sub_questions: [],
+    //   },
+    //   {
+    //     label: 'address',
+    //     type: 'fieldgroup',
+    //     id: '1277',
+    //     validators: [],
+    //     mandatory: false,
+    //     sub_questions: [
+    //       {
+    //         label: 'street',
+    //         type: 'text',
+    //         mandatory: true,
+    //         id: '12333',
+    //         validators: [],
+    //         sub_questions: [],
+    //       },
+    //       {
+    //         label: 'city',
+    //         type: 'text',
+    //         mandatory: true,
+    //         id: '1257',
+    //         validators: [],
+    //         sub_questions: [],
+    //       },
+    //     ],
+    //   },
+    // ]);
 
     fixture.detectChanges();
   });
@@ -72,9 +72,9 @@ describe('TailwindFormComponent', () => {
   });
 
   it('should build the form with dynamic controls', () => {
-    expect(component.form).toBeTruthy();
-    expect(component.form.get('email')).toBeTruthy();
-    expect(component.form.get('phone')).toBeTruthy();
+    expect(component.form()).toBeTruthy();
+    expect(component.form().get('email')).toBeTruthy();
+    expect(component.form().get('phone')).toBeTruthy();
   });
 
   it('should add a field group to the form', () => {
@@ -144,7 +144,7 @@ describe('TailwindFormComponent', () => {
     component.submit();
     expect(spy).toHaveBeenCalledWith(
       'Form submitted successfully!',
-      component.form.value
+      component.form().value
     );
   });
 });
